@@ -16,7 +16,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Pear-Admin-Boot" target="1.8" />
+      <module name="pear-admin-boot" target="1.8" />
       <module name="pear-common" target="1.8" />
       <module name="pear-entrance" target="1.8" />
       <module name="pear-generator" target="1.8" />

@@ -8,5 +8,4 @@ public class QueryRoleParam {
     private String roleCode;
 
     private String roleName;
-
 }

@@ -1,0 +1,7 @@
+com\pearadmin\process\controller\ProModelController.class
+com\pearadmin\process\resource\ModelEditorSaveRestResource.class
+com\pearadmin\process\controller\ProDefinedController.class
+com\pearadmin\process\domain\ProDefined.class
+com\pearadmin\process\resource\ModelEditorJsonRestResource.class
+com\pearadmin\process\param\CreateModelParam.class
+com\pearadmin\process\resource\ModelEditorToolRestResource.class
