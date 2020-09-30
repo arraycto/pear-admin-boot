@@ -8,6 +8,12 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ * Describe: 系统角色接口
+ * Author: 就 眠 仪 式
+ * CreateTime: 2019/10/23
+ * */
+
 @Mapper
 public interface SysRoleMapper {
 
@@ -29,17 +35,24 @@ public interface SysRoleMapper {
 
     /**
      * Describe: 根据 Id 修改角色
-     * Param: username
-     * Return: SysUser
+     * Param: SysRole
+     * Return: Integer
      * */
     Integer updateById(SysRole sysRole);
 
     /**
      * Describe: 根据 Id 删除用户
-     * Param: username
-     * Return: SysUser
+     * Param: id
+     * Return: Integer
      * */
     Integer deleteById(String id);
+
+    /**
+     * Describe: 根据 Id 批量删除
+     * Param: ids
+     * Return: Integer
+     * */
+    Integer deleteByIds(String[] ids);
 
 
 

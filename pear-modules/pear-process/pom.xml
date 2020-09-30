@@ -9,19 +9,22 @@
     </parent>
     <groupId>com.pearadmin</groupId>
     <artifactId>pear-process</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${pear.process.version}</version>
     <name>工作流程</name>
     <description>Demo project for Spring Boot</description>
 
     <dependencies>
+        <!-- 公 共 模 块 -->
         <dependency>
             <groupId>com.pearadmin</groupId>
             <artifactId>pear-common</artifactId>
         </dependency>
+        <!-- Web 模 块 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- 工 作 流 -->
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>

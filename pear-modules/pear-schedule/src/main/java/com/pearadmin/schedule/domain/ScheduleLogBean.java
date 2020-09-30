@@ -3,6 +3,8 @@ package com.pearadmin.schedule.domain;
 import com.pearadmin.common.web.base.BaseDomain;
 import lombok.Data;
 import org.apache.ibatis.type.Alias;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Describe: 定时任务日志记录
@@ -10,8 +12,8 @@ import org.apache.ibatis.type.Alias;
  * CreateTime: 2019/10/23
  * */
 @Data
-@Alias("ScheduleLog")
-public class ScheduleLogBean extends BaseDomain {
+@Alias("ScheduleLogBean")
+public class ScheduleLogBean implements Serializable {
 
 	/**
 	 * 日志编号
@@ -52,5 +54,10 @@ public class ScheduleLogBean extends BaseDomain {
 	 * 运行时长
 	 * */
 	private Integer times;
+
+	/**
+	 * 创建时间
+	 * */
+	private LocalDateTime createTime;
 
 }

@@ -6,7 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
+/**
+ * Describe: 系统权限接口
+ * Author: 就 眠 仪 式
+ * CreateTime: 2019/10/23
+ * */
 @Mapper
 public interface SysPowerMapper {
 
@@ -45,7 +51,7 @@ public interface SysPowerMapper {
      * Param: parentId
      * Return: ResuMenu
      * */
-    List<Menu> selectMenuByParentId(String parentId);
+    List<Menu> selectMenuByParentId(@Param("username") String username,@Param("parentId") String parentId);
 
     /**
      * Describe: 修改权限信息

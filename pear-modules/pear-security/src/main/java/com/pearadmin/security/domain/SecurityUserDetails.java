@@ -1,11 +1,14 @@
 package com.pearadmin.security.domain;
 
 import com.pearadmin.system.domain.SysUser;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class SecurityUserDetails extends SysUser implements UserDetails{
+
+    private String realName;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -39,7 +42,18 @@ public class SecurityUserDetails extends SysUser implements UserDetails{
 
     @Override
     public boolean isEnabled() {
-        return false;
+
+        return getEnable();
+    }
+
+    @Override
+    public String getRealName() {
+        return realName;
+    }
+
+    @Override
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
 }

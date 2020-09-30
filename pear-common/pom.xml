@@ -12,12 +12,13 @@
     <!-- 基本信息 -->
     <groupId>com.pearadmin</groupId>
     <artifactId>pear-common</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${pear.common.version}</version>
     <name>公共模块</name>
     <description>Demo project for Spring Boot</description>
 
     <!-- 依赖管理 -->
     <dependencies>
+
         <!-- Web 模块 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,6 +78,17 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.9</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>13.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

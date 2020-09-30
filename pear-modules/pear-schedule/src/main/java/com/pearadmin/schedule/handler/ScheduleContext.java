@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.JobExecutionContext;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import java.lang.reflect.Method;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Describe: 定时任务执行上下文
@@ -33,7 +33,7 @@ public class ScheduleContext extends QuartzJobBean {
         logBean.setJobId(jobBean.getJobId());
         logBean.setBeanName(jobBean.getBeanName());
         logBean.setParams(jobBean.getParams());
-        logBean.setCreateTime(new Date());
+        logBean.setCreateTime(LocalDateTime.now());
         long beginTime = System.currentTimeMillis() ;
         try {
             Object target = SpringUtil.getBean(jobBean.getBeanName());

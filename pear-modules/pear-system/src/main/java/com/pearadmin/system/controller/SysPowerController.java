@@ -54,6 +54,7 @@ public class SysPowerController extends BaseController {
      * Return 权限列表数据
      * */
     @GetMapping("data")
+    @PreAuthorize("hasPermission('/system/power/data','sys:power:data')")
     public ResultTable data(SysPower sysPower){
         return treeTable(sysPowerService.list(sysPower));
     }
@@ -64,6 +65,7 @@ public class SysPowerController extends BaseController {
      * Return 权限新增视图
      * */
     @GetMapping("add")
+    @PreAuthorize("hasPermission('/system/power/add','sys:power:add')")
     public ModelAndView add(){
         return JumpPage(MODULE_PATH + "add");
     }
@@ -74,6 +76,7 @@ public class SysPowerController extends BaseController {
      * Return 权限修改视图
      * */
     @GetMapping("edit")
+    @PreAuthorize("hasPermission('/system/power/edit','sys:power:edit')")
     public ModelAndView edit(Model model, String powerId){
         model.addAttribute("sysPower",sysPowerService.getById(powerId));
         return JumpPage(MODULE_PATH + "edit");
@@ -85,6 +88,7 @@ public class SysPowerController extends BaseController {
      * Return: ResuBean
      * */
     @PostMapping("save")
+    @PreAuthorize("hasPermission('/system/power/add','sys:power:add')")
     public Result save(@RequestBody SysPower sysPower){
         sysPower.setPowerId(SequenceUtil.makeStringId());
         boolean result = sysPowerService.save(sysPower);
@@ -97,6 +101,7 @@ public class SysPowerController extends BaseController {
      * Return 执行结果
      * */
     @PutMapping("update")
+    @PreAuthorize("hasPermission('/system/power/edit','sys:power:edit')")
     public Result update(@RequestBody SysPower sysPower){
         boolean result = sysPowerService.update(sysPower);
         return decide(result);
@@ -108,6 +113,7 @@ public class SysPowerController extends BaseController {
      * Return ResuTree
      * */
     @DeleteMapping("remove/{id}")
+    @PreAuthorize("hasPermission('/system/power/remove','sys:power:remove')")
     public Result remove(@PathVariable String id){
         boolean result = sysPowerService.remove(id);
         return decide(result);
@@ -136,7 +142,7 @@ public class SysPowerController extends BaseController {
      * */
     @PutMapping("enable")
     public Result enable(@RequestBody SysPower sysPower){
-        sysPower.setEnable("0");
+        sysPower.setEnable(true);
         boolean result = sysPowerService.update(sysPower);
         return decide(result);
     }
@@ -148,7 +154,7 @@ public class SysPowerController extends BaseController {
      * */
     @PutMapping("disable")
     public Result disable(@RequestBody SysPower sysPower){
-        sysPower.setEnable("1");
+        sysPower.setEnable(false);
         boolean result = sysPowerService.update(sysPower);
         return decide(result);
     }
