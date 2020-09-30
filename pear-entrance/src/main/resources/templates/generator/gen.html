@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>FastCoding代码生成器</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" th:href="@{/component/pear/css/pear.css}"/>
+</head>
+<body class="pear-container">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form" id="genForm">
+                <div class="layui-form">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">表名</label>
+                            <div class="layui-input-inline">
+                                <input id="tableName" name="tableName" class="layui-input" type="text" placeholder="请输入表名"/>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">表描述</label>
+                            <div class="layui-input-inline">
+                                <input id="tableDescribe" name="tableDescribe" class="layui-input" type="text" placeholder="请输入表描述"/>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="button" id="searchBtn" class="pear-btn pear-btn-md pear-btn-primary">
+                                <i class="layui-icon">&#xe615;</i> 搜索
+                            </button>
+                            <button type="button" id="resetBtn" class="pear-btn pear-btn-md">
+                                <i class="layui-icon">&#xe669;</i> 重置
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="genTable" lay-filter="genTable"></table>
+        </div>
+    </div>
+
+    <!-- 行工具栏 -->
+    <script type="text/html" id="tableBar">
+        <a class="layui-btn layui-btn-xs" lay-event="generate">生成代码</a>
+    </script>
+
+    <!-- js -->
+    <script th:src="@{/component/layui/layui.js}"></script>
+    <script th:src="@{/component/pear/pear.js}"></script>
+    <script>
+        layui.use(['table','jquery','layer','common'], function() {
+            const table = layui.table,
+                layer = layui.layer,
+                common = layui.common,
+                $ = layui.jquery;
+
+            const tableIns = table.render({
+                elem: '#genTable'
+                ,url: '/generator/getTables'
+                ,page: true
+                ,cellMinWidth: 100
+                ,cols: [ [
+                    {type: 'checkbox'}
+                    ,{field:'tableName', title: '表名'}
+                    ,{field:'dataRows', title: '数据行', sort: true}
+                    ,{field:'tableDescribe', title: '表描述'}
+                    ,{field:'createTime', title: '创建时间', sort: true}
+                    ,{field:'updateTime', title: '修改时间', sort: true}
+                    ,{fixed: 'right', align: 'center', toolbar: '#tableBar', minWidth: 300, title: '操作'}
+                ] ]
+            });
+
+            // 搜索
+            $('#searchBtn').on('click',function () {
+                tableIns.reload({
+                    where: common.getFormData('genForm'),
+                    page: {curr: 1}
+                });
+            });
+
+            // 重置搜索条件
+            $('#resetBtn').on('click',function () {
+                document.getElementById('genForm').reset();
+                tableIns.reload({
+                    where: common.getFormData('genForm'),
+                    page: {curr: 1}
+                });
+            });
+
+            // 生成代码
+            function execute(data) {
+                layer.open({
+                    type: 2,
+                    title: '生成代码(' + data.tableName + ')',
+                    content: '/generator/add?tableName=' + data.tableName,
+                    area: ['80%', '80%'],
+                    max: true
+                });
+            }
+
+            // 表格行工具栏事件监听
+            table.on('tool(genTable)', function (obj) {
+                const data = obj.data
+                    , event = obj.event;
+
+                if(event === 'generate') {
+                    execute(data);
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>

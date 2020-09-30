@@ -14,6 +14,82 @@ public class FileUtil extends org.apache.commons.io.FileUtils
     public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
 
     /**
+     * 验证文件夹是否存在
+     * @param filePath 文件夹绝对路径
+     * @return {boolean}
+     */
+    public static boolean validateFileDir(String filePath) {
+        boolean flag = false;
+        //判断文件路径是否存在
+        File fileDir = new File(filePath);
+        if (fileDir.exists()) {
+            flag = true;
+        }
+        return flag;
+    }
+
+    /**
+     * 判断文件是否存在
+     * @param filePath 文件地址
+     * @return {boolean}
+     */
+    public static boolean isExists(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
+
+    /**
+     * 创建文件夹
+     * @param directoryPath
+     * @return
+     */
+    public static String mkdir(String directoryPath) {
+        try{
+            File file = new File(directoryPath);
+            if(!file.exists()) {
+                file.mkdirs();
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return directoryPath;
+    }
+
+    /**
+     * 返回前台文件流
+     *
+     * @param filePath 待下载文件路径
+     * @param fileName 下载文件名称
+     * @param delete   下载后是否删除源文件
+     * @param response HttpServletResponse
+     * @throws Exception Exception
+     */
+    public static void downloadFile(String filePath, String fileName, Boolean delete, HttpServletResponse response) throws Exception {
+        if (!isExists(filePath)) {
+            throw new Exception("文件:"+filePath+"未找到");
+        }
+
+        // 设置响应
+        response.setHeader("Content-Disposition", "attachment;fileName=" + java.net.URLEncoder.encode(fileName, "utf-8"));
+        response.setContentType("multipart/form-data");
+        response.setCharacterEncoding("utf-8");
+
+        // 文件流操作
+        File file = new File(filePath);
+        try (InputStream inputStream = new FileInputStream(file); OutputStream os = response.getOutputStream()) {
+            byte[] b = new byte[2048];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+        } finally {
+            if(delete) {
+                deleteFile(filePath);
+            }
+        }
+    }
+
+    /**
      * 输出指定文件的byte数组
      * 
      * @param filePath 文件路径

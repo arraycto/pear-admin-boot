@@ -15,7 +15,7 @@
 
     <!-- 模 块 描 述 -->
     <name>代码生成</name>
-    <description>Demo project for Spring Boot</description>
+    <description>code generator,make coding easier</description>
 
     <!-- 依 赖 管 理 -->
     <dependencies>
@@ -23,6 +23,11 @@
         <dependency>
             <groupId>com.pearadmin</groupId>
             <artifactId>pear-common</artifactId>
+        </dependency>
+        <!-- 分 页 组 件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
         </dependency>
         <!-- 代 码 生 成 -->
         <dependency>

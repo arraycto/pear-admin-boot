@@ -1,28 +1,35 @@
 package com.pearadmin.generator.mapper;
 
+import com.pearadmin.generator.domain.FieldInfo;
+import com.pearadmin.generator.domain.TableInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
-import java.util.Map;
 
 /**
- * Describe: 代码生成接口
- * Author: 就 眠 仪 式
- * CreateTime: 2019/10/23
- * */
+ * 代码生成Mapper
+ *
+ * @author Bamboo
+ * @since 2020-09-28
+ */
 @Mapper
 public interface GeneratorMapper {
 
     /**
-     * Describe: 查询数据库所有表
-     * Param null
-     * Return ResultTable
-     * */
-    List<Map> queryTable();
+     * 获取数据库中的表
+     *
+     * @param tableName 表名
+     * @param tableDescribe 表描述
+     * @return tables
+     */
+    List<TableInfo> getTables(@Param("tableName") String tableName, @Param("tableDescribe") String tableDescribe);
 
     /**
-     * Describe: 查询数据库所有列
-     * Param null
-     * Return ResultTable
-     * */
-    List<Map> queryColumn(String tableName);
+     * 获取表所有字段
+     *
+     * @param tableName 表名
+     * @return fields
+     */
+    List<FieldInfo> getFields(@Param("tableName") String tableName);
 }
